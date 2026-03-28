@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure--ihnpo9^)h$5^x$%7c*q@@%oe5-wi3s7@dsvx%i6&80+fi%ww6
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['biztrackbackend-qgne.onrender.com','10.5.50.174','192.168.137.1','192.168.100.43','192.168.137.77','localhost','localhost:5173','127.0.0.1','unbragging-conchita-superadjacent.ngrok-free.dev']
+ALLOWED_HOSTS = ['biztrackbackend-qgne.onrender.com','biztrack-eta.vercel.app','192.168.137.1','192.168.100.43','192.168.137.77','localhost','localhost:5173','127.0.0.1','unbragging-conchita-superadjacent.ngrok-free.dev']
 
 
 # Application definition
