@@ -39,15 +39,21 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Use 'get' with a default or check if they exist
+# settings.py
+
+import os
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 465              # Changed from 587
-EMAIL_USE_TLS = False         # Set to False
-EMAIL_USE_SSL = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # Add this line
+EMAIL_HOST = 'smtp-relay.brevo.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# It is best practice to use environment variables on Render
+EMAIL_HOST_USER = os.environ.get('BREVO_LOGIN', 'a67f49001@smtp-brevo.com')
+EMAIL_HOST_PASSWORD = os.environ.get('BREVO_PASSWORD', 'rdZCwH6UkpGYWz8S')
+
+# This MUST be an email address you have verified in your Brevo "Senders" list
+DEFAULT_FROM_EMAIL = 'wawerumwangidan@gmail.com'  # Add this line
 
 
 INSTALLED_APPS = [
