@@ -859,8 +859,8 @@ def request_password_reset(request):
     send_mail(
         subject,
         message,  
-        "wawerumwangidan@gmail.com", 
-        [email],                    
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[email],                   
         fail_silently=False,
         html_message=html_message     
     )
