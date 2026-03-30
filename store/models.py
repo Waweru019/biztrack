@@ -46,7 +46,9 @@ class Business(models.Model):
         ('butchery', 'burchery'),
         ('hardware', 'hardware'),
         ('boutique', 'boutique'),
-        ('electronics', 'Electronics'),
+        ('agrovet', 'agrovet'),
+        ('cyber', 'cyber'),
+        ('electronics', 'electronics'),
         
         ('other', 'Other'),
     )
@@ -149,6 +151,8 @@ class Category(MPTTModel):
     ('butchery', 'burchery'),
     ('hardware', 'hardware'),
     ('boutique', 'boutique'),
+     ('agrovet', 'agrovet'),
+    ('cyber', 'cyber'),
      ('electronics', 'Electronics'),
      ]
     name = models.CharField(max_length=100)
