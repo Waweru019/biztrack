@@ -42,7 +42,12 @@ class Business(models.Model):
         ('mama_mboga', 'Mama Mboga'),
         ('boda_boda', 'Boda Boda'),
         ('pharmacy', 'Pharmacy'),
+        ('kinyozi', 'kinyozi'),
+        ('butchery', 'burchery'),
+        ('hardware', 'hardware'),
+        ('boutique', 'boutique'),
         ('electronics', 'Electronics'),
+        
         ('other', 'Other'),
     )
 
@@ -139,9 +144,12 @@ class Category(MPTTModel):
     ("retail", "Retail"),
     ("boda_boda", "Boda Boda"),
     ("mama_mboga", "Mama Mboga"), 
-    ("restaurant", "Restaurant"),
-    ("service", "Service"),
-    ("other", "Other"), 
+    ('pharmacy', 'Pharmacy'),
+    ('kinyozi', 'kinyozi'),
+    ('butchery', 'burchery'),
+    ('hardware', 'hardware'),
+    ('boutique', 'boutique'),
+     ('electronics', 'Electronics'),
      ]
     name = models.CharField(max_length=100)
     slug = models.SlugField()
