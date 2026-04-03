@@ -7,7 +7,7 @@ from django.utils import timezone
 from datetime import timedelta
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
-
+from django.core.exceptions import ObjectDoesNotExist
 
 class Profile(models.Model):
     ROLES = (
@@ -17,9 +17,20 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     business = models.ForeignKey('Business', on_delete=models.CASCADE)
     role = models.CharField(max_length=10, choices=ROLES, default='cashier')
-    phone = models.CharField(max_length=15, blank=True, null=True) # Add this line!
+    phone = models.CharField(max_length=15, blank=True, null=True)
+
     def __str__(self):
         return f"{self.user.username} - {self.role}"
+
+    def has_active_access(self):
+        try:
+        # We don't check 'is_authenticated' here because if the profile 
+        # object exists, the user is already in the DB.
+           status = self.business.is_subscription_active()
+           return status in ['trial', 'active']
+        except ObjectDoesNotExist:
+           return False
+
 
 class SubscriptionPlan(models.Model):
     PLAN_INTERVALS = (
@@ -209,6 +220,7 @@ class Product(models.Model):
         blank=True, 
         help_text="Discounted price for a full bale"
     )
+    updated_at = models.DateTimeField(auto_now=True) # Automatically updates on every save
     is_service = models.BooleanField(default=False)
     
     def save(self, *args, **kwargs):
@@ -273,6 +285,7 @@ class Sale(models.Model):
         ("M-Pesa", "M-Pesa"),
         ('Credit', 'Credit'),
     ]
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
     customer = models.ForeignKey(Person, null=True, blank=True, on_delete=models.SET_NULL)
