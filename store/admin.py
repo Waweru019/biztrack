@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib import admin
 from mptt.admin import DraggableMPTTAdmin
-from .models import Product,Business,Expense,SaleItem,Sale,Category,Unit,UnitConversion,SubscriptionPlan,Person,Customer
+from .models import Product,Business,Expense,SaleItem,Sale,Category,Unit,UnitConversion,SubscriptionPlan,Person,Profile,Customer
 
 @admin.register(Category)
 class CategoryAdmin(DraggableMPTTAdmin):
@@ -19,6 +19,7 @@ admin.site.register(Unit)
 admin.site.register(SubscriptionPlan)
 admin.site.register(Person)
 admin.site.register(Customer)
+admin.site.register(Profile)
 
 
 
