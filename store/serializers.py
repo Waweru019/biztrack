@@ -268,8 +268,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return data
 
 
-# serializers.py
-class StaffCreateSerializer(serializers.ModelSerializer):
+"""class StaffCreateSerializer(serializers.ModelSerializer):
     role = serializers.CharField(required=True)
     password = serializers.CharField(write_only=True)
 
@@ -287,6 +286,53 @@ class StaffCreateSerializer(serializers.ModelSerializer):
         # 2. Get the Admin's business from the context
         request = self.context.get("request")
         admin_business = request.user.profile.business
+
+        # 3. Create the Profile linked to the Admin's business
+        Profile.objects.create(
+            user=user, 
+            business=admin_business, 
+            role=role
+        )
+        return user
+ """
+from rest_framework import serializers
+
+class StaffCreateSerializer(serializers.ModelSerializer):
+    role = serializers.CharField(required=True)
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = ["username", "password", "role"]
+
+    def validate(self, attrs):
+        """
+        Check if the admin's business has an active subscription.
+        """
+        request = self.context.get("request")
+        # Ensure the admin has a profile and a business
+        admin_profile = getattr(request.user, 'profile', None)
+        
+        if not admin_profile or not admin_profile.business:
+            raise serializers.ValidationError("Admin does not have an associated business.")
+
+        # Check subscription status using your helper method
+        if not admin_profile.has_active_access():
+            raise serializers.ValidationError(
+                "Cannot add staff. Your business subscription is inactive or expired."
+            )
+            
+        return attrs
+
+    def create(self, validated_data):
+        role = validated_data.pop("role")
+        password = validated_data.pop("password")
+        
+        # 1. Create the User
+        user = User.objects.create_user(**validated_data, password=password)
+        
+        # 2. Get the Admin's business
+        admin_business = self.context.get("request").user.profile.business
 
         # 3. Create the Profile linked to the Admin's business
         Profile.objects.create(
