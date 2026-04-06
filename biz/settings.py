@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure--ihnpo9^)h$5^x$%7c*q@@%oe5-wi3s7@dsvx%i6&80+fi%ww6
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['biztrackbackends.onrender.com','biztrack-s.vercel.app/','192.168.137.1','10.5.50.174','192.168.100.43','192.168.137.77','localhost','localhost:5173','127.0.0.1','unbragging-conchita-superadjacent.ngrok-free.dev']
+ALLOWED_HOSTS = ['biztrackbackends.onrender.com','biztrack-s.vercel.app','192.168.137.1','10.5.50.174','192.168.100.43','192.168.137.77','localhost','localhost:5173','127.0.0.1','unbragging-conchita-superadjacent.ngrok-free.dev']
 
 
 # Application definition
@@ -89,15 +89,15 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "https://biztrack-eta.vercel.app",
-    "http:// 10.5.50.174:5173", # Add your local IP if testing on mobile
+    "http:// 10.5.50.174:5173",
+    "https://biztrack-s.vercel.app", 
 ]
 
 # 2. Tell Django to trust this origin for secure requests (POST, PUT, DELETE)
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "https://biztrack-s.vercel.app/",
+    "https://biztrack-s.vercel.app",
 ]
 SIMPLE_JWT = {
     "UPDATE_LAST_LOGIN": True,
