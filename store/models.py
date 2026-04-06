@@ -285,8 +285,7 @@ class Sale(models.Model):
         ("M-Pesa", "M-Pesa"),
         ('Credit', 'Credit'),
     ]
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-
+   
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
     customer = models.ForeignKey(Person, null=True, blank=True, on_delete=models.SET_NULL)
     status = models.CharField(

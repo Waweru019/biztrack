@@ -39,7 +39,6 @@ class SaleSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         items_data = validated_data.pop("items")
         request = self.context.get("request")
-        sale_id = self.initial_data.get('id')
         business = get_user_business(request.user)
         
         # 1. Calculate Debt and Status
@@ -90,7 +89,7 @@ class SaleSerializer(serializers.ModelSerializer):
 
                 # Save the line item
                 SaleItem.objects.create(
-                    id=sale_id, # Use the UUID from React
+                   
                     sale=sale,
                     product=product,
                     quantity=qty_ordered,
